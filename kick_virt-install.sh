@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NAME=testsvr01
-RAM=2048
+RAM=4096
 VCPUS=2
 ARCH=x86_64
 MACHINE=centos8
