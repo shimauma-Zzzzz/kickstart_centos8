@@ -1,6 +1,12 @@
 #!/bin/sh
 
-NAME=testsvr01
+if [[ $# != 1 ]]
+then
+	echo ./$(basename $0) KVM_DomainName
+	exit 1
+fi
+
+NAME=$1
 RAM=4096
 VCPUS=2
 ARCH=x86_64
@@ -9,7 +15,7 @@ OS_TYPE=linux
 OS_VARIANT=centos8
 BOOT=hd
 DISK="/var/lib/libvirt/images/${NAME}.qcow2"
-DISK_SIZE=5G
+DISK_SIZE=10G
 NETWORK="bridge:br0"
 GRAHPICS=none
 SERIAL=pty
