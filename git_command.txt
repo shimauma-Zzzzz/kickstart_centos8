@@ -32,4 +32,30 @@ HEAD  branches  config  description  hooks  index  info  logs  objects  packed-r
 
 
 ===================================================================================
+git add / commit
 
+[root@sakura kickstart_centos8]# git add .
+[root@sakura kickstart_centos8]# git commit -m "KVM_DomainName is required to run kick_virt-install.sh"
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'root@sakura.(none)')
+[root@sakura kickstart_centos8]#
+[root@sakura kickstart_centos8]# git config --global user.email shimauma@jp.ibm.com
+[root@sakura kickstart_centos8]# git config --global user.name shimauma_Zzzzz
+[root@sakura kickstart_centos8]# git commit -m "KVM_DomainName is required to run kick_virt-install.sh"
+[master 87269b5] KVM_DomainName is required to run kick_virt-install.sh
+ 2 files changed, 43 insertions(+), 2 deletions(-)
+ create mode 100644 git_command.txt
+ mode change 100644 => 100755 kick_virt-install.sh
+[root@sakura kickstart_centos8]#
+
+===================================================================================
