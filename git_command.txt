@@ -59,3 +59,22 @@ fatal: unable to auto-detect email address (got 'root@sakura.(none)')
 [root@sakura kickstart_centos8]#
 
 ===================================================================================
+push
+
+
+[root@sakura kickstart_centos8]# git push origin master
+Username for 'https://github.com': shimauma-Zzzzz
+Password for 'https://shimauma-Zzzzz@github.com':
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 1.60 KiB | 1.60 MiB/s, done.
+Total 7 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/shimauma-Zzzzz/kickstart_centos8
+   b279d6a..3514ae4  master -> master
+[root@sakura kickstart_centos8]#
+
+
+===================================================================================
