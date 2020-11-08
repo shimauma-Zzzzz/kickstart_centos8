@@ -20,7 +20,7 @@ SERIAL=pty
 CONSOLE=pty
 LOCATION="/data/media/CentOS-8.1.1911-x86_64-dvd1.iso"
 CDROM="/data/media/CentOS-8.1.1911-x86_64-dvd1.iso"
-KICKSTART_TEMPLATE=/data/kickstart/centos8.ks.cfg
+KICKSTART_TEMPLATE=/data/kickstart_centos8/centos8.ks.cfg
 
 ## check template
 if [[ ! -r ${KICKSTART_TEMPLATE} ]]
