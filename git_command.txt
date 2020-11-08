@@ -78,3 +78,65 @@ To https://github.com/shimauma-Zzzzz/kickstart_centos8
 
 
 ===================================================================================
+branch
+
+[root@sakura test]# git branch test01
+[root@sakura test]#
+
+[root@sakura test]# git branch
+* main
+  test01
+[root@sakura test]#
+
+[root@sakura test]# git checkout test01
+M       README.md
+Switched to branch 'test01'
+[root@sakura test]#
+[root@sakura test]# git branch
+  main
+* test01
+[root@sakura test]#
+
+# README.md に追記
+
+[root@sakura test]# git add .
+[root@sakura test]# git commit -m "commit README.md into test01 branch"
+[test01 c2c0394] commit README.md into test01 branch
+ 1 file changed, 2 insertions(+)
+[root@sakura test]#
+
+
+===================================================================================
+merge 
+
+[root@sakura test]# git merge test01
+Already up to date.
+
+[root@sakura test]# git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+
+[root@sakura test]# ls
+README.md
+[root@sakura test]# cat README.md
+# test
+
+
+
+[root@sakura test]# git merge test01
+Updating bde57a2..c2c0394
+Fast-forward
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
+
+
+[root@sakura test]# cat README.md
+# test
+# branch
+# branch test01
+
+[root@sakura test]#
+
+
+

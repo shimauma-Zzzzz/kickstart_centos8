@@ -7,6 +7,17 @@ then
 fi
 
 NAME=$1
+
+IP_ADDR=$( grep -w ${NAME} /etc/hosts | awk '{ print $1 }' | head -n 1 )
+
+if [[ x${IP_ADDR} = x ]]
+then
+	echo "IP address for ${NAME} not found in /etc/hosts"
+	exit 1
+else
+	echo "${NAME} : ${IP_ADDR}"
+fi
+
 RAM=4096
 VCPUS=2
 ARCH=x86_64
@@ -22,9 +33,20 @@ SERIAL=pty
 CONSOLE=pty
 LOCATION="/data/media/CentOS-8.1.1911-x86_64-dvd1.iso"
 CDROM="/data/media/CentOS-8.1.1911-x86_64-dvd1.iso"
-INITRD_INJECT="/data/kickstart/centos8.ks.cfg"
+KICKSTART_TEMPLATE=/data/kickstart/centos8.ks.cfg
+#INITRD_INJECT="/data/kickstart/centos8.ks.cfg"
+INITRD_INJECT=$( pwd )/centos8.${NAME}.ks.cfg
 EXTRA_ARGS="inst.ks=file:/$(basename ${INITRD_INJECT}) console=ttyS0"
 #EXTRA_ARGS="ks=file:/$(basename ${INITRD_INJECT}) console=ttyS0"
+
+#INITRD_INJECT Generation
+if [[ ! -r ${KICKSTART_TEMPLATE} ]]
+then
+	echo "${KICKSTART_TEMPLATE} not found"
+	exit 1
+fi
+
+cat ${KICKSTART_TEMPLATE} | sed 's/IP_ADDR/'${IP_ADDR}'/g' > ${INITRD_INJECT}
 
 #DIR check
 for DIR in $( dirname ${DISK} )
