@@ -11,7 +11,7 @@ skipx
 lang ja_JP.UTF-8
 keyboard --vckeymap=jp106 --xlayouts=jp
 
-#network --bootproto=static --device=enp1s0 --gateway=GATEWAY --ip=IP_ADDR --nameserver=NAMESERVER --netmask=NETMASK --noipv6 --activate
+network --bootproto=static --device=enp1s0 --gateway=192.168.199.254 --ip=IP_ADDR --nameserver=192.168.199.254 --netmask=255.255.255.0 --noipv6 --activate
 network --hostname=VM_HOSTNAME
 
 zerombr
@@ -20,15 +20,15 @@ bootloader --location=mbr
 autopart --type=lvm
 clearpart --all --initlabel
 
-rootpw --plaintext ROOT_PW
-user --groups=wheel --name=USER --password=USER_PASSWD
+rootpw --plaintext password
+user --groups=wheel --name=shimauma --password=password
 auth --enableshadow --passalgo=sha512
 selinux --disabled
 firewall --disabled
 #firstboot --enabled
 firstboot --disabled
 
-timezone Asia/Tokyo --isUtc --ntpservers=NTPSERVER
+timezone Asia/Tokyo --isUtc --ntpservers=192.168.199.2
 services --enabled=chronyd --disabled=kdump,auditd
 
 #halt

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [[ $1 = "help" ]]
+if [[ $# = 0  ]] || [[ $1 = "help" ]]
 then
 	echo "./$(basename $0) [KVM_DomainName|ALL]"
 	exit 1
@@ -17,6 +17,8 @@ fi
 
 for VM in ${VMS}
 do
+	rm -f centos8.${VM}.ks.cfg
+
 	VMNUM=$( virsh list --all | grep -w -c ${VM} )
 	if [[ ${VMNUM} != 1 ]]
 	then
@@ -25,6 +27,9 @@ do
 	fi
 
 	echo "VM: ${VM}"
+
+	echo "Destroy VM"
+	virsh destroy ${VM}
 
 	echo "Disable autostart"	
 	virsh autostart --disable ${VM}

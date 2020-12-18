@@ -1,11 +1,13 @@
 #!/bin/sh
 
-if [[ $1 = "help" ]]
+if [[ $# = 0 ]] || [[ $1 = "help" ]]
 then
 	echo ./$(basename $0) KVM_DomainName
 	exit 1
 fi
 
+BASEDIR=/data/kickstart_centos8
+MEDIADIR=/data/media
 RAM=4096
 VCPUS=2
 ARCH=x86_64
@@ -18,9 +20,9 @@ NETWORK="bridge:br0"
 GRAHPICS=none
 SERIAL=pty
 CONSOLE=pty
-LOCATION="/data/media/CentOS-8.1.1911-x86_64-dvd1.iso"
-CDROM="/data/media/CentOS-8.1.1911-x86_64-dvd1.iso"
-KICKSTART_TEMPLATE=/data/kickstart_centos8/centos8.ks.cfg
+#LOCATION="${MEDIADIR}/CentOS-8.1.1911-x86_64-dvd1.iso"
+LOCATION="${MEDIADIR}/CentOS-8.2.2004-x86_64-dvd1.iso"
+KICKSTART_TEMPLATE=${BASEDIR}/centos8.ks.cfg
 
 ## check template
 if [[ ! -r ${KICKSTART_TEMPLATE} ]]
@@ -57,7 +59,9 @@ do
 	DISK="/var/lib/libvirt/images/${VM}.qcow2"
 	#INITRD_INJECT="/data/kickstart/centos8.ks.cfg"
 	INITRD_INJECT=$( pwd )/centos8.${VM}.ks.cfg
-	EXTRA_ARGS="inst.ks=file:/$(basename ${INITRD_INJECT}) console=ttyS0"
+	#EXTRA_ARGS="inst.ks=file:/$(basename ${INITRD_INJECT}) console=tty0"
+	EXTRA_ARGS="inst.ks=file:/$(basename ${INITRD_INJECT}) console=tty0, console=ttyS0,115200n8"
+	#EXTRA_ARGS="inst.ks=file:/$(basename ${INITRD_INJECT})"
 	#EXTRA_ARGS="ks=file:/$(basename ${INITRD_INJECT}) console=ttyS0"
 	
 	#INITRD_INJECT Generation
@@ -100,6 +104,7 @@ do
 	        --console ${CONSOLE} \
 	        --network="${NETWORK}" \
 	        --location ${LOCATION} \
+		--noautoconsole \
 	        --initrd-inject ${INITRD_INJECT} \
 	        --extra-args "${EXTRA_ARGS}"
 	
@@ -114,9 +119,11 @@ do
 	        --console ${CONSOLE} \
 	        --network=bridge:br0 \
 	        --location ${LOCATION} \
+		--noautoconsole \
 	        --initrd-inject ${INITRD_INJECT} \
 	        --extra-args "${EXTRA_ARGS}"
 	
+
 	#       --hvm \
 	#       --virt-type kvm \
 	#       --ram ${RAM} \
